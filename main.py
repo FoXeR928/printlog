@@ -27,6 +27,7 @@ def parse():
             for param in prop:
                 all_users_data.append(userdata[param])
             all_users.append(all_users_data)
+    all_users.reverse()
     for person in all_users:
         tree.insert("", END, values=person)
 
@@ -47,14 +48,18 @@ def find():
                 for param in prop:
                     all_users_data.append(userdata[param])
                 all_users.append(all_users_data)
+    all_users.reverse()
     for person in all_users:
         tree.insert("", END, values=person)
 
 def conver_csv():
-    print(*tree.get_children())
+    for item_id in tree.get_children():
+        row_item=tree.item(item_id)
+        print(row_item['value'])
 
 window=Tk()
 window.title('События печати')
+#window.geometry(f"{width}x{height}")
 
 update_button=Button(window,text="Обновить", width=40, command=parse)
 find_button=Button(window,text="Найти", width=40, command=find)
@@ -70,6 +75,6 @@ update_button.grid(row=0, column=0,padx=5, pady=5)
 entry.grid(row=0, column=1,padx=5, pady=5)
 find_button.grid(row=0, column=2,padx=5, pady=5)
 tree.grid(row=1, column=0, columnspan=3, padx=5, pady=5)
-find_button.grid(row=3, column=2,padx=5, pady=5)
+csv_button.grid(row=3, column=2,padx=5, pady=5)
 window.mainloop()
 
