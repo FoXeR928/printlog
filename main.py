@@ -1,10 +1,9 @@
 from evtx import PyEvtxParser
-import xml.etree.ElementTree as ET
-from xml.dom.minidom import parseString
+import csv
 import json
-from tkinter import Tk, Label, ttk, Button, Entry,LEFT,RIGHT, BOTH,SE,NE, END, CENTER, Scrollbar
+from tkinter import Tk, Label, ttk, Button, Entry, END, CENTER, Scrollbar
 
-path="C:/Users/akimov.n.r/Desktop/Microsoft-Windows-PrintService%4Operational.evtx"
+path="Microsoft-Windows-PrintService%4Operational.evtx"
 prop=['Param2','Param3','Param4','Param5','Param6']
 event_id=307
 width=800
@@ -53,9 +52,19 @@ def find():
         tree.insert("", END, values=person)
 
 def conver_csv():
+    csv_list=[]
+    head_name=[]
+    for key,name in columns_head.items():
+        head_name.append(name)
+    csv_list.append(head_name)
     for item_id in tree.get_children():
         row_item=tree.item(item_id)
-        print(row_item['value'])
+        csv_list.append(row_item['values'])
+    with open('print_log.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        csv_writer = csv.writer(csvfile, delimiter=' ',
+                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        for csv_val in csv_list:
+            csv_writer.writerow(csv_val)
 
 window=Tk()
 window.title('События печати')
