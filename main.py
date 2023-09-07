@@ -1,9 +1,11 @@
 import evtx
 import csv
 import json
+import os
 from tkinter import Tk, ttk, Button, Entry, END
 
-path = "C:\\Windows\\System32\\winevt\\Logs\\Microsoft-Windows-PrintService%4Operational.evtx"
+cmd_command="copy %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-PrintService%4Operational.evtx C:\\Users\\akimov.n.r\\Desktop\\printlog\\"
+path = "Microsoft-Windows-PrintService%4Operational.evtx"
 prop = ["Param2", "Param3", "Param4", "Param5", "Param6"]
 event_id = 307
 width = 800
@@ -17,8 +19,11 @@ columns_head = {
     "printers": "Принтер",
 }
 
+def take_log(command_copy):
+    os.system(command_copy)
 
-def parse():
+
+def parse():    
     tree.delete(*tree.get_children())
     all_users = []
     parser = evtx.PyEvtxParser(path)
@@ -76,6 +81,7 @@ def conver_csv():
         for csv_val in csv_list:
             csv_writer.writerow(csv_val)
 
+take_log(cmd_command)
 
 window = Tk()
 window.title("События печати")
