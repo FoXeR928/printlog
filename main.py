@@ -4,7 +4,7 @@ import json
 import os
 from tkinter import Tk, ttk, Button, Entry, END
 
-cmd_command="copy %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-PrintService%4Operational.evtx C:\\Users\\akimov.n.r\\Desktop\\printlog\\"
+cmd_command="copy %SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-PrintService%4Operational.evtx"
 path = "Microsoft-Windows-PrintService%4Operational.evtx"
 prop = ["Param2", "Param3", "Param4", "Param5", "Param6"]
 event_id = 307
